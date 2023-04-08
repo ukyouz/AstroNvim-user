@@ -7,7 +7,7 @@ return {
     spell = false, -- sets vim.opt.spell
     signcolumn = "auto", -- sets vim.opt.signcolumn to auto
     wrap = false, -- sets vim.opt.wrap
-    guifont = "FiraCode Nerd Font:h14",
+    guifont = "FiraCode Nerd Font Mono:h14",
     swapfile = false,
     backup = false,
     laststatus = 2, -- sets local statusline
@@ -15,6 +15,8 @@ return {
     title = true,
     titlestring = "%{getcwd()} - NVIM",
     cmdheight = 1, -- avoid press Enter to continue
+    clipboard = "", -- use separated clipboard for neovim
+    scrolloff = 0,
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader

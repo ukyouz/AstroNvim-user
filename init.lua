@@ -18,7 +18,8 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  -- colorscheme = "astrodark",
+  colorscheme = "onedark",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -69,6 +70,8 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    -- Only enable 24-bit RGB color in GUI, disable for MacOS Terminal.app
+    vim.o.termguicolors = vim.api.nvim_eval("has('gui_vimr')") == 1
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {

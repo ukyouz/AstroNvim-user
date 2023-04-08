@@ -5,19 +5,79 @@ return {
     opts = function(_, opts)
       -- customize the dashboard header
       opts.section.header.val = {
-        " █████  ███████ ████████ ██████   ██████",
-        "██   ██ ██         ██    ██   ██ ██    ██",
-        "███████ ███████    ██    ██████  ██    ██",
-        "██   ██      ██    ██    ██   ██ ██    ██",
-        "██   ██ ███████    ██    ██   ██  ██████",
-        " ",
         "    ███    ██ ██    ██ ██ ███    ███",
         "    ████   ██ ██    ██ ██ ████  ████",
         "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
         "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
         "    ██   ████   ████   ██ ██      ██",
       }
+      local button = require("astronvim.utils").alpha_button
+      opts.section.buttons.val = {
+        -- button("LDR n", "  New File  "),
+        button("LDR f f", "  Find File  "),
+        button("LDR f o", "  Recents  "),
+        -- button("LDR f w", "  Find Word  "),
+        button("LDR f '", "  Bookmarks  "),
+        button("LDR S f", "  Find Session  "),
+        button("LDR S l", "  Last Session  "),
+      }
       return opts
+    end,
+  },
+  {
+    "rcarriga/nvim-notify",
+    opts = function(_, opts)
+      opts.render = "compact"
+      opts.timeout = 3000 -- 0 to disable notification
+      opts.stages = "static"
+    end,
+  },
+  {
+    "willthbill/opener.nvim",
+    -- enabled = false,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    enabled = false,
+    lazy = false,
+    config = function()
+      require("telescope").load_extension("opener")
+      require("telescope").setup {
+        extensions = {
+          opener = {
+            root_dir = "~",
+            respect_gitignore = true,
+          }
+        }
+      }
+    end,
+  },
+  {
+    "ukyouz/onedark.vim",
+    config = function()
+      vim.g.onedark_style = "darker"
+    end,
+  },
+  {
+    "wellle/context.vim",
+    event = "BufReadPost",
+    config = function()
+      local group = vim.api.nvim_create_augroup("context_au", { clear = true, })
+      vim.api.nvim_create_autocmd({"BufReadPost"}, {
+        desc = "Enable context.vim for current buffer",
+        group = group,
+        command = "ContextEnable",
+      })
+    end,
+  },
+  ---- better text object action ----
+  { "tpope/vim-surround", event = "BufReadPost", },
+  { "tpope/vim-repeat", event = "BufReadPost", },
+  { "wellle/targets.vim", event = "BufReadPost", },
+  { "mg979/vim-visual-multi",
+    event = "BufReadPost",
+    config = function()
+      vim.g.VM_theme = "codedark"
     end,
   },
   -- You can disable default plugins as follows:

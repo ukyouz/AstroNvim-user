@@ -26,13 +26,13 @@ return {
   }
 
   local mode_colors = {
-    n = utils.get_highlight("Directory").fg,
-    i = utils.get_highlight("String").fg,
-    v = utils.get_highlight("Function").fg,
-    V = utils.get_highlight("Function").fg,
-    R = utils.get_highlight("DiagnosticError").fg,
-    t = utils.get_highlight("Directory").fg,
-    c = utils.get_highlight("Number").fg,
+    n = utils.get_highlight("Directory"),
+    i = utils.get_highlight("String"),
+    v = utils.get_highlight("Function"),
+    V = utils.get_highlight("Function"),
+    R = utils.get_highlight("DiagnosticError"),
+    t = utils.get_highlight("Directory"),
+    c = utils.get_highlight("Number"),
   }
   local FileNameBlock = {
       -- let's first set up some attributes needed by this component and it's children
@@ -41,11 +41,12 @@ return {
       end,
       hl = function(self)
           local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
-          return { fg = mode_colors[mode], }
+          return mode_colors[mode]
       end,
   }
   local FileName = {
       provider = function(self)
+        if vim.o.filetype == "neo-tree" then return vim.o.filetype end
           local filename = vim.fn.expand("%:p:.")
           if filename == "" then return "[No Name]" end
           if not conditions.width_percent_below(#filename, 0.25) then
@@ -65,14 +66,14 @@ return {
           condition = function()
               return not vim.bo.modifiable or vim.bo.readonly
           end,
-          provider = "",
+          provider = " ",
       },
   }
   FileNameBlock = utils.insert(FileNameBlock,
       FileName,
       FileFlags,
       -- this means that the statusline is cut here when there's not enough space
-      { provider = '%<  '} 
+      { provider = '%<  '}
   )
   local Ruler = {
       -- %l = current line number
