@@ -9,13 +9,15 @@ return {
     -- second key is the lefthand side of the map
     -- mappings seen under group name "Buffer"
     [";"] = { ":" },
+    ["<leader>ft"] = { "<cmd>:Telescope tags<cr>", desc = "Find ctags" },
+    ["<leader>fl"] = { "<cmd>:Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy current buffer lines" },
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
         require("astronvim.utils.status").heirline.buffer_picker(function(bufnr) require("astronvim.utils.buffer").close(bufnr) end)
       end,
       desc = "Pick to close",
-    },
+  },
     ["<D-Up>"] = { function() require("smart-splits").resize_up() end, desc = "Resize split up" },
     ["<D-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
     ["<D-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },

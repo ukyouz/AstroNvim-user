@@ -2,6 +2,7 @@ return {
   "nvim-telescope/telescope.nvim",
   opts = function(_, opts)
     local actions = require "telescope.actions"
+    local action_layout = require "telescope.actions.layout"
     opts.defaults.layout_strategy = "center"
     opts.defaults.layout_config.center = {
       prompt_position = "top",
@@ -14,7 +15,8 @@ return {
     opts.defaults.mappings.i = {
       ["<Down>"] = actions.cycle_history_next,
       ["<Up>"] = actions.cycle_history_prev,
-      ["<C-d>"] = false,
+      ["<C-p>"] = action_layout.toggle_preview,
+      ["<C-d>"] = actions.delete_buffer,
       ["<C-u>"] = false,
       ["<D-d>"] = actions.preview_scrolling_down,
       ["<D-u>"] = actions.preview_scrolling_up,
@@ -26,6 +28,10 @@ return {
         local key = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
         vim.api.nvim_feedkeys(key, "n", false)
       end,
+    }
+    opts.defaults.mappings.n = {
+      ["p"] = action_layout.toggle_preview,
+      ["d"] = actions.delete_buffer,
     }
   end,
 }

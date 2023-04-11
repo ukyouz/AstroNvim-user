@@ -60,10 +60,10 @@ return {
   },
   {
     "wellle/context.vim",
-    event = "BufReadPost",
+    event = "BufEnter",
     config = function()
       local group = vim.api.nvim_create_augroup("context_au", { clear = true, })
-      vim.api.nvim_create_autocmd({"BufReadPost"}, {
+      vim.api.nvim_create_autocmd({"BufEnter"}, {
         desc = "Enable context.vim for current buffer",
         group = group,
         command = "ContextEnable",
@@ -71,11 +71,11 @@ return {
     end,
   },
   ---- better text object action ----
-  { "tpope/vim-surround", event = "BufReadPost", },
-  { "tpope/vim-repeat", event = "BufReadPost", },
-  { "wellle/targets.vim", event = "BufReadPost", },
+  { "tpope/vim-surround", event = "BufEnter", },
+  { "tpope/vim-repeat", event = "BufEnter", },
+  { "wellle/targets.vim", event = "BufEnter", },
   { "mg979/vim-visual-multi",
-    event = "BufReadPost",
+    event = "BufEnter",
     config = function()
       vim.g.VM_theme = "codedark"
     end,
