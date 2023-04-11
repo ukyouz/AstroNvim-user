@@ -70,6 +70,16 @@ return {
       })
     end,
   },
+  { "ludovicchabant/vim-gutentags",
+    event = "VimEnter",
+    config = function()
+      local user_dir = vim.api.nvim_eval("expand('~/.local/share/nvim')")
+      vim.o.cscopetag = false
+      vim.o.cscopeprg = "gtags-cscope"
+      vim.g.gutentags_modules = {"ctags", "gtags_cscope"}
+      vim.g.gutentags_cache_dir = user_dir .. "/vim-gutentags"
+    end,
+  },
   ---- better text object action ----
   { "tpope/vim-surround", event = "BufEnter", },
   { "tpope/vim-repeat", event = "BufEnter", },
