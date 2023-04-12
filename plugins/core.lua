@@ -1,3 +1,5 @@
+local utils = require "astronvim.utils"
+
 return {
   -- customize alpha options
   {
@@ -32,6 +34,42 @@ return {
       opts.stages = "static"
     end,
   },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = function(_, opts)
+      opts.direction = "horizontal"
+    end,
+    init = function()
+      function _G.set_terminal_keymaps()
+        local opts = {buffer = 0}
+        vim.keymap.set('n', '<esc>', [[<C-w>q]], opts)
+        vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+        vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+        vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+        vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+        vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+        vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+        -- vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>q]], opts)
+      end
+      -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+      vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+    end,
+    config = function()
+      local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
+      local ipython = vim.fn.executable "ipython" == 1 and "IPython"
+      if python and ipython then
+        vim.api.nvim_set_keymap(
+          "n", "<leader>tp", "",
+          {
+            noremap = true,
+            silent = true,
+            desc = "ToggleTerm iPython",
+            callback = function() utils.toggle_term_cmd(string.format("%s -m %s", python, ipython)) end,
+          }
+        )
+      end
+    end,
+  },
   -- user optional plugins list below
   {
     "ukyouz/onedark.vim",
@@ -45,9 +83,10 @@ return {
     config = function()
       local group = vim.api.nvim_create_augroup("context_au", { clear = true, })
       vim.api.nvim_create_autocmd({"BufEnter"}, {
+        pattern = {"term://*", "term://*toggleterm#*"},
         desc = "Enable context.vim for current buffer",
         group = group,
-        command = "ContextEnable",
+        command = "ContextDisableWindow",
       })
     end,
   },
