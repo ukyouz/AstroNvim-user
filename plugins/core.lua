@@ -52,6 +52,7 @@ return {
       }
     end,
   },
+  -- user optional plugins list below
   {
     "ukyouz/onedark.vim",
     config = function()
@@ -70,7 +71,8 @@ return {
       })
     end,
   },
-  { "ludovicchabant/vim-gutentags",
+  {
+    "ludovicchabant/vim-gutentags",
     enabled = false,
     event = "VimEnter",
     init = function()
@@ -78,7 +80,7 @@ return {
       -- vim.o.cscopetag = true
       -- vim.o.cscopeprg = "gtags-cscope"
       vim.g.gutentags_modules = {"ctags", "gtags_cscope"}
-      vim.g.gutentags_cache_dir = user_dir .. "/vim-gutentags"
+      vim.g.gutentags_cache_dir = user_dir
     end,
   },
   ---- better text object action ----

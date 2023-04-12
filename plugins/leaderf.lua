@@ -6,8 +6,8 @@ return {
         local utils = require "astronvim.utils"
         vim.g.Lf_Gtagslabel = "native-pygments"
         -- vim.g.Lf_GtagsGutentags = true
-        vim.g.Lf_GtagsAutoGenerate = false
-        vim.g.Lf_GtagsAutoUpdate = false
+        vim.g.Lf_GtagsAutoGenerate = true
+        vim.g.Lf_GtagsAutoUpdate = true
 
         vim.g.Lf_ShortcutF = "<leader>ff"  -- to avoid <leader>f open LeaderfFile picker
         vim.g.Lf_ShortcutB = "<leader>fb"  -- to avoid <leader>b open LeaderBuffer picker
@@ -18,6 +18,7 @@ return {
         vim.g.Lf_PopupWidth = 0.8
         vim.g.Lf_PopupPosition = {1, 0}
         vim.g.Lf_PopupPreviewPosition = 'bottom'
+        vim.g.Lf_DefaultMode = 'NameOnly'
         vim.g.Lf_PreviewInPopup = 1
         vim.g.Lf_StlSeparator = { left = "", right = "" }
         vim.g.Lf_NormalMap = {
