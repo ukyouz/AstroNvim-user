@@ -8,6 +8,8 @@ return {
     signcolumn = "auto", -- sets vim.opt.signcolumn to auto
     wrap = false, -- sets vim.opt.wrap
     guifont = "FiraCode Nerd Font Mono:h14",
+    wrapscan = false, -- disable wrap searching with `*`, `#`
+    fixendofline = false,
     swapfile = false,
     backup = false,
     laststatus = 2, -- sets local statusline
