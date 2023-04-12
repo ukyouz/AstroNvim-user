@@ -7,7 +7,7 @@ return {
     spell = false, -- sets vim.opt.spell
     signcolumn = "auto", -- sets vim.opt.signcolumn to auto
     wrap = false, -- sets vim.opt.wrap
-    guifont = "FiraCode Nerd Font Mono:h14",
+    guifont = "JetBrainsMono Nerd Font Mono:h9:w70",
     wrapscan = false, -- disable wrap searching with `*`, `#`
     fixendofline = false,
     swapfile = false,
