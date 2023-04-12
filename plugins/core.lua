@@ -32,26 +32,6 @@ return {
       opts.stages = "static"
     end,
   },
-  {
-    "willthbill/opener.nvim",
-    -- enabled = false,
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    enabled = false,
-    lazy = false,
-    config = function()
-      require("telescope").load_extension("opener")
-      require("telescope").setup {
-        extensions = {
-          opener = {
-            root_dir = "~",
-            respect_gitignore = true,
-          }
-        }
-      }
-    end,
-  },
   -- user optional plugins list below
   {
     "ukyouz/onedark.vim",
