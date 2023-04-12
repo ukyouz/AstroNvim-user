@@ -9,7 +9,6 @@ return {
     -- second key is the lefthand side of the map
     -- mappings seen under group name "Buffer"
     [";"] = { ":" },
-    ["<leader>fl"] = { "<cmd>:Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy current buffer lines" },
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
