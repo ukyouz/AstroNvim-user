@@ -71,19 +71,21 @@ return {
     end,
   },
   { "ludovicchabant/vim-gutentags",
+    enabled = false,
     event = "VimEnter",
-    config = function()
-      local user_dir = vim.api.nvim_eval("expand('~/.local/share/nvim')")
-      vim.o.cscopetag = false
-      vim.o.cscopeprg = "gtags-cscope"
+    init = function()
+      local user_dir = vim.api.nvim_eval("expand('~/.LfCache/gtags')")
+      -- vim.o.cscopetag = true
+      -- vim.o.cscopeprg = "gtags-cscope"
       vim.g.gutentags_modules = {"ctags", "gtags_cscope"}
       vim.g.gutentags_cache_dir = user_dir .. "/vim-gutentags"
     end,
   },
   ---- better text object action ----
-  { "tpope/vim-surround", event = "BufEnter", },
-  { "tpope/vim-repeat", event = "BufEnter", },
-  { "wellle/targets.vim", event = "BufEnter", },
+  { "tpope/vim-surround", event = "BufEnter", },  -- add surround movement
+  { "tpope/vim-repeat", event = "BufEnter", },  -- better . repeat action
+  { "tpope/vim-unimpaired", event = "BufEnter", }, -- add common `[`, `]` movement
+  { "wellle/targets.vim", event = "BufEnter", }, -- add more textobject
   { "mg979/vim-visual-multi",
     event = "BufEnter",
     config = function()

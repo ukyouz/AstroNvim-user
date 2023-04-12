@@ -9,6 +9,10 @@ return {
     },
   },
   {
+    "nvim-treesitter/playground",
+    event = "BufReadPost",
+  },
+  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -19,7 +23,7 @@ return {
         textobjects = {
           select = {
             enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim 
+            -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
@@ -44,6 +48,19 @@ return {
           },
         },
       })
+
+      vim.api.nvim_set_keymap(
+            "n", "[t", "",
+            {
+                desc = "Go to current function name",
+                noremap = false,
+                callback = function()
+                    vim.api.nvim_exec("normal [f", false)
+                    vim.fn.search('(', 'c')
+                    vim.api.nvim_exec("normal B", false)
+                end,
+            }
+        )
     end,
   },
 }

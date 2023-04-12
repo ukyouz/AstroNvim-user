@@ -71,7 +71,18 @@ return {
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
     -- Only enable 24-bit RGB color in GUI, disable for MacOS Terminal.app
-    vim.o.termguicolors = vim.api.nvim_eval("has('gui_vimr')") == 1
+    -- vim.o.termguicolors = vim.api.nvim_eval("has('gui_vimr')") == 1
+    vim.o.termguicolors = true
+
+    local group = vim.api.nvim_create_augroup("autoreload", { clear = true, })
+    vim.api.nvim_create_autocmd({
+      "BufEnter", "CursorHold", "CursorHoldI", "FocusGained"
+    }, {
+      desc = "Ensure to load the latest file revision",
+      command = "if mode() != 'c' | checktime | endif",
+      group = group,
+      pattern = { "*" },
+    })
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {

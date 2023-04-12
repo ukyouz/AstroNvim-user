@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  -- enabled = false,
   opts = function(_, opts)
     local actions = require "telescope.actions"
     local action_layout = require "telescope.actions.layout"
@@ -7,7 +8,7 @@ return {
     opts.defaults.layout_config.center = {
       prompt_position = "top",
       height = 0.4,
-      width = 0.99,
+      width = 0.8,
       anchor = "N",
       mirror = true,
       preview_cutoff = 0, -- always show preview event at small visible region
@@ -33,5 +34,12 @@ return {
       ["p"] = action_layout.toggle_preview,
       ["d"] = actions.delete_buffer,
     }
+
+    vim.api.nvim_set_keymap("n",
+      "<leader>fl", "<cmd>:Telescope current_buffer_fuzzy_find<cr>",
+      {
+        desc = "Fuzzy current buffer lines"
+      }
+    )
   end,
 }
