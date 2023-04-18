@@ -70,6 +70,27 @@ return {
       end
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
+  },
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      opts.triggers_nowait = {
+        -- marks
+        "`",
+        "'",
+        "g`",
+        "g'",
+        -- registers
+        -- '"',
+        -- "<c-r>",
+        -- spelling
+        "z=",
+      }
+    end,
+  },
   -- user optional plugins list below
   {
     "ukyouz/onedark.vim",
@@ -102,11 +123,41 @@ return {
       vim.g.gutentags_cache_dir = user_dir
     end,
   },
+  {
+    "ukyouz/Vim-C-Defines",
+    event = "BufReadPost",
+    ft = {"c", "cpp"},
+    config = function()
+      vim.api.nvim_set_keymap(
+        "n", "<leader>rd", "",
+        {
+          desc = "Reveal definition",
+          noremap = false,
+          callback = function()
+            local cword = vim.fn.expand('<cword>')
+            vim.api.nvim_exec(string.format("CdfCalculateToken %s", cword), false)
+          end,
+        }
+      )
+      vim.api.nvim_set_keymap(
+        "x", "<leader>rd", "",
+        {
+          desc = "Reveal definition",
+          noremap = false,
+          callback = function()
+            local cword = vim.fn.expand('<cword>')
+            vim.api.nvim_exec(string.format("CdfCalculateToken %s", cword), false)
+          end,
+        }
+      )
+    end,
+  },
   ---- better text object action ----
   { "tpope/vim-surround", event = "BufEnter", },  -- add surround movement
   { "tpope/vim-repeat", event = "BufEnter", },  -- better . repeat action
   { "tpope/vim-unimpaired", event = "BufEnter", }, -- add common `[`, `]` movement
   { "wellle/targets.vim", event = "BufEnter", }, -- add more textobject
+  { "michaeljsmith/vim-indent-object", event = "BufEnter", }, -- add indent as a textobject
   { "mg979/vim-visual-multi",
     event = "BufEnter",
     config = function()
