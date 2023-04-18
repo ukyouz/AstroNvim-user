@@ -5,7 +5,7 @@ return {
     init = function()
         local utils = require "astronvim.utils"
         vim.g.Lf_Gtagslabel = "native-pygments"
-        -- vim.g.Lf_GtagsGutentags = true
+        vim.g.Lf_GtagsGutentags = false
         vim.g.Lf_GtagsAutoGenerate = true
         vim.g.Lf_GtagsAutoUpdate = true
 
@@ -20,6 +20,7 @@ return {
         vim.g.Lf_PopupPreviewPosition = 'bottom'
         vim.g.Lf_DefaultMode = 'NameOnly'
         vim.g.Lf_PreviewInPopup = 1
+        vim.g.Lf_JumpToExistingWindow = 0
         vim.g.Lf_StlSeparator = { left = "", right = "" }
         vim.g.Lf_NormalMap = {
             _ =     {{"<C-j>", "j"},
@@ -47,6 +48,17 @@ return {
     end,
     config = function()
         -- rebind keymap here to replace telescope keymaps
+        vim.api.nvim_set_keymap(
+            "n", "<c-]>", "",
+            {
+                desc = "Jump to definition",
+                noremap = false,
+                callback = function()
+                    local cword = vim.fn.expand('<cword>')
+                    vim.api.nvim_exec(string.format("Leaderf! gtags -d %s --auto-jump", cword), true)
+                end,
+            }
+        )
         vim.api.nvim_set_keymap(
             "n", "<leader>ff", "<cmd>:LeaderfFile<cr>",
             { desc = "Find files", noremap = false, }
@@ -76,9 +88,16 @@ return {
         )
 
         vim.api.nvim_set_keymap(
+            "n", "<leader>fr", "<cmd>:Leaderf! rg<cr>",
+            {
+                desc = "Find words (Leaderf rg)",
+                noremap = false,
+            }
+        )
+        vim.api.nvim_set_keymap(
             "n", "<leader>fk", "",
             {
-                desc = "Find current word (rg)",
+                desc = "Find current word (Leaderf rg)",
                 noremap = false,
                 callback = function()
                     local cword = vim.fn.expand('<cword>')

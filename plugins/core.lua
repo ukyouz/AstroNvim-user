@@ -36,9 +36,6 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    opts = function(_, opts)
-      opts.direction = "horizontal"
-    end,
     init = function()
       function _G.set_terminal_keymaps()
         local opts = {buffer = 0}
@@ -53,21 +50,23 @@ return {
       end
       -- if you only want these mappings for toggle term use term://*toggleterm#* instead
       vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-    end,
-    config = function()
-      local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
-      local ipython = vim.fn.executable "ipython" == 1 and "IPython"
-      if python and ipython then
-        vim.api.nvim_set_keymap(
-          "n", "<leader>tp", "",
-          {
-            noremap = true,
-            silent = true,
-            desc = "ToggleTerm iPython",
-            callback = function() utils.toggle_term_cmd(string.format("%s -m %s", python, ipython)) end,
-          }
-        )
+
+      function _G.migrate_ipython()
+        local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
+        local ipython = vim.fn.executable "ipython" == 1 and "IPython"
+        if python and ipython then
+          vim.api.nvim_set_keymap(
+            "n", "<leader>tp", "",
+            {
+              noremap = true,
+              silent = true,
+              desc = "ToggleTerm iPython",
+              callback = function() utils.toggle_term_cmd(string.format("%s -m %s", python, ipython)) end,
+            }
+          )
+        end
       end
+      vim.cmd('autocmd! VimEnter * lua migrate_ipython()')
     end,
   },
   {
@@ -114,7 +113,8 @@ return {
   {
     "ludovicchabant/vim-gutentags",
     enabled = false,
-    event = "VimEnter",
+    ft = {"c", "cpp", "python"},
+    event = "BufEnter",
     init = function()
       local user_dir = vim.api.nvim_eval("expand('~/.LfCache/gtags')")
       -- vim.o.cscopetag = true

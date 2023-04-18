@@ -49,9 +49,9 @@ return {
         if vim.o.filetype == "neo-tree" then return vim.o.filetype end
           local filename = vim.fn.expand("%:p:.")
           if filename == "" then return "[No Name]" end
-          if not conditions.width_percent_below(#filename, 0.25) then
-              filename = vim.fn.pathshorten(filename)
-          end
+        --   if not conditions.width_percent_below(#filename, 0.25) then
+        --       filename = vim.fn.pathshorten(filename)
+        --   end
           return filename
       end,
   }
