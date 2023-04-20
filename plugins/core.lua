@@ -111,8 +111,9 @@ return {
     end,
   },
   {
-    "ludovicchabant/vim-gutentags",
-    enabled = false,
+    "ukyouz/vim-gutentags",
+    -- enabled = false,
+    branch = "improve_update_perf",
     ft = {"c", "cpp", "python"},
     event = "BufEnter",
     init = function()

@@ -5,9 +5,9 @@ return {
     init = function()
         local utils = require "astronvim.utils"
         vim.g.Lf_Gtagslabel = "native-pygments"
-        vim.g.Lf_GtagsGutentags = false
-        vim.g.Lf_GtagsAutoGenerate = true
-        vim.g.Lf_GtagsAutoUpdate = true
+        vim.g.Lf_GtagsGutentags = true
+        vim.g.Lf_GtagsAutoGenerate = false
+        vim.g.Lf_GtagsAutoUpdate = false
 
         vim.g.Lf_ShortcutF = "<leader>ff"  -- to avoid <leader>f open LeaderfFile picker
         vim.g.Lf_ShortcutB = "<leader>fb"  -- to avoid <leader>b open LeaderBuffer picker
