@@ -153,6 +153,22 @@ return {
       )
     end,
   },
+  {
+    "skywind3000/vim-preview",
+    event = "VimEnter",
+    config = function()
+      vim.api.nvim_exec("let g:preview#preview_position = 'bottom'", false)
+      vim.api.nvim_exec("let g:preview#preview_size = '13'", false)
+      vim.api.nvim_set_keymap(
+        "n", "<C-p>", "<cmd>:PreviewTag<cr>",
+        { desc = "Preview current tag", noremap = false, }
+      )
+      vim.api.nvim_set_keymap(
+        "n", "<C-z>", "<cmd>:PreviewClose<cr>",
+        { desc = "Preview close", noremap = false, }
+      )
+    end,
+  },
   ---- better text object action ----
   { "tpope/vim-surround", event = "BufEnter", },  -- add surround movement
   { "tpope/vim-repeat", event = "BufEnter", },  -- better . repeat action
