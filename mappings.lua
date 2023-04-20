@@ -16,10 +16,10 @@ return {
       end,
       desc = "Pick to close",
   },
-    ["<D-Up>"] = { function() require("smart-splits").resize_up() end, desc = "Resize split up" },
-    ["<D-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
-    ["<D-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
-    ["<D-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+    ["<A-Up>"] = { function() require("smart-splits").resize_up() end, desc = "Resize split up" },
+    ["<A-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
+    ["<A-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
+    ["<A-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
 
     ["*"] = {
       "<cmd>keepjumps normal!*N<cr>",
