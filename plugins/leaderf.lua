@@ -20,6 +20,7 @@ return {
         vim.g.Lf_PopupPreviewPosition = 'bottom'
         vim.g.Lf_DefaultMode = 'NameOnly'
         vim.g.Lf_PreviewInPopup = 1
+        vim.g.Lf_ShowDevIcons = 1
         vim.g.Lf_JumpToExistingWindow = 0
         vim.g.Lf_StlSeparator = { left = "", right = "" }
         vim.g.Lf_NormalMap = {
@@ -40,6 +41,18 @@ return {
             Self=   {{"<ESC>", ':exec g:Lf_py "selfExplManager.quit()"<CR>'}},
             Colorscheme= {{"<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>'}},
         }
+        vim.g.Lf_PreviewResult = {
+            File = 0,
+            Buffer = 0,
+            Mru = 1,
+            Tag = 0,
+            BufTag = 1,
+            Function = 0,
+            Line = 1,
+            Colorscheme = 1,
+            Rg = 0,
+            Gtags = 1,
+        }
 
         vim.g.Lf_CtagsFuncOpts = {
             python = "--langmap=Python:.py.pyw",
@@ -49,9 +62,9 @@ return {
     config = function()
         -- rebind keymap here to replace telescope keymaps
         vim.api.nvim_set_keymap(
-            "n", "<c-]>", "",
+            "n", "<leader>fd", "",
             {
-                desc = "Jump to definition",
+                desc = "Jump to definition (Gtags)",
                 noremap = false,
                 callback = function()
                     local cword = vim.fn.expand('<cword>')
