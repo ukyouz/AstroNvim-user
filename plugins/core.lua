@@ -74,6 +74,14 @@ return {
     enabled = false,
   },
   {
+    "nvim-window-picker",
+    enabled = false,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    enabled = false,
+  },
+  {
     "folke/which-key.nvim",
     opts = function(_, opts)
       opts.triggers_nowait = {
@@ -87,6 +95,43 @@ return {
         -- "<c-r>",
         -- spelling
         "z=",
+      }
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      local cmp = require "cmp"
+      return {
+        mapping = {
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-e>'] = cmp.mapping.close(),
+          -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<C-Space>'] = cmp.mapping.confirm({ select = false }),
+          ['<Tab>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end,
+          ['<S-Tab>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end,
+        },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+        }, {
+          { name = 'buffer' },
+        }),
       }
     end,
   },
@@ -111,11 +156,21 @@ return {
     end,
   },
   {
+    "RRethy/vim-illuminate",
+    event = "BufReadPost",
+    init = function()
+      vim.g.Illuminate_delay = 100
+      vim.g.Illuminate_large_file_cutoff = 1000
+      vim.g.Illuminate_highlightUnderCursor = 0
+      vim.g.Illuminate_ftwhitelist = {'c', 'cpp', 'python'}
+      vim.g.Illuminate_ftblacklist = {'nerdtree'}
+    end,
+  },
+  {
     "ukyouz/vim-gutentags",
     -- enabled = false,
     branch = "improve_update_perf",
     ft = {"c", "cpp", "python"},
-    event = "BufEnter",
     init = function()
       local user_dir = vim.api.nvim_eval("expand('~/.LfCache/gtags')")
       -- vim.o.cscopetag = true
@@ -126,7 +181,6 @@ return {
   },
   {
     "ukyouz/Vim-C-Defines",
-    event = "BufReadPost",
     ft = {"c", "cpp"},
     config = function()
       vim.api.nvim_set_keymap(
@@ -155,7 +209,7 @@ return {
   },
   {
     "skywind3000/vim-preview",
-    event = "VimEnter",
+    ft = {"c", "cpp", "python"},
     config = function()
       vim.api.nvim_exec("let g:preview#preview_position = 'bottom'", false)
       vim.api.nvim_exec("let g:preview#preview_size = '13'", false)
@@ -170,13 +224,13 @@ return {
     end,
   },
   ---- better text object action ----
-  { "tpope/vim-surround", event = "BufEnter", },  -- add surround movement
-  { "tpope/vim-repeat", event = "BufEnter", },  -- better . repeat action
-  { "tpope/vim-unimpaired", event = "BufEnter", }, -- add common `[`, `]` movement
-  { "wellle/targets.vim", event = "BufEnter", }, -- add more textobject
-  { "michaeljsmith/vim-indent-object", event = "BufEnter", }, -- add indent as a textobject
+  { "tpope/vim-surround", event = "BufReadPost", },  -- add surround movement
+  { "tpope/vim-repeat", event = "BufReadPost", },  -- better . repeat action
+  { "tpope/vim-unimpaired", event = "BufReadPost", }, -- add common `[`, `]` movement
+  { "wellle/targets.vim", event = "BufReadPost", }, -- add more textobject
+  { "michaeljsmith/vim-indent-object", event = "BufReadPost", }, -- add indent as a textobject
   { "mg979/vim-visual-multi",
-    event = "BufEnter",
+    event = "BufReadPost",
     config = function()
       vim.g.VM_theme = "codedark"
     end,
