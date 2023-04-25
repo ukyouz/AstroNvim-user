@@ -1,10 +1,32 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-refactor",
+    },
     opts = {
+      disable = function(lang, bufnr)
+        return vim.api.nvim_buf_line_count(bufnr) > 5000
+      end,
       -- ensure_installed = { "lua" },
       highlight = {
         additional_vim_regex_highlighting = true,
+      },
+      refactor = {
+        highlight_definitions = { enable = false },
+        highlight_current_scope = { enable = false },
+        smart_rename = {
+          enable = true,
+          keymaps = { smart_rename = "grr", },
+        },
+        navigation = {
+          enable = true,
+          keymaps = {
+            goto_definition = "<a-)>", --- alt-shift-0
+            -- goto_next_usage = "<a-*>", --- alt-shift-8
+            -- goto_previous_usage = "<a-#>", --- alt-shlft-3
+          }
+        }
       },
     },
   },
