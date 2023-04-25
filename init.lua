@@ -83,6 +83,16 @@ return {
       group = group,
       pattern = { "*" },
     })
+
+    vim.g.python3_host_prog = vim.fn.expand("$LOCALAPPDATA/Programs/Python/Python310/python.exe")
+
+    local lsp = require "astronvim.utils.lsp"
+    lsp.setup_diagnostics({})  -- disable diagnostics with icons
+
+    local namespace = vim.api.nvim_create_namespace
+    -- clear keybinding for auto-clear highlight
+    vim.on_key(function(char) end, namespace "auto_hlsearch")
+
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {

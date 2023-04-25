@@ -20,6 +20,15 @@ return {
     ["<D-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
     ["<D-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
     ["<D-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+
+    ["*"] = {
+      "<cmd>keepjumps normal!*N<cr>",
+      desc = "Search forward and highlight current first"
+    },
+    ["#"] = {
+      "<cmd>keepjumps normal!#N<cr>",
+      desc = "Search backward and highlight current first"
+    },
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     -- ["<leader>b"] = { name = "Buffers" },
